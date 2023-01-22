@@ -1,10 +1,14 @@
 
 ## Setup
 
-Run the setup script to choose a model to use. This will download the model from [Huggingface/Moyix](https://huggingface.co/Moyix) in GPT-J format and then convert it for use with FasterTransformer.
+Run the setup script to choose a model to use.
+This will download the model from [Huggingface/Moyix](https://huggingface.co/Moyix)
+in GPT-J format and
+then convert it for use with FasterTransformer.
 
 ```
 $ ./setup.sh
+
 Models available:
 [1] codegen-350M-mono (2GB total VRAM required; Python-only)
 [2] codegen-350M-multi (2GB total VRAM required; multi-language)

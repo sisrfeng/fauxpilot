@@ -190,3 +190,4 @@ else
   echo "You can run ./launch.sh to start the FauxPilot server."
   exit 0
 fi
+# vim:ft=zsh

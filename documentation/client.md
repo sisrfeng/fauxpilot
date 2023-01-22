@@ -1,8 +1,21 @@
-We offer some ways to connect to the FauxPilot Server. For example, you can create a client by how to open the Openai API, Copilot Plugin, REST API.
+
+We offer some ways to connect to the FauxPilot Server.
+For example,
+you can create a client by
+how to open the Openai API,
+Copilot Plugin,
+REST API.
 
 ## API
 
-Once everything is up and running, you should have a server listening for requests on `http://localhost:5000`. You can now talk to it using the standard [OpenAI API](https://beta.openai.com/docs/api-reference/) (although the full API isn't implemented yet). For example, from Python, using the [OpenAI Python bindings](https://github.com/openai/openai-python):
+Once everything is up and
+running,
+you should have a server listening for requests on `http://localhost:5000`.
+You can now talk to it using the standard [OpenAI API](https://beta.openai.com/docs/api-reference/)
+(although the full API isn't implemented yet).
+For example,
+from Python,
+using the [OpenAI Python bindings](https://github.com/openai/openai-python):
 
 ```python
 $ ipython
@@ -49,19 +62,34 @@ $ curl -s -H "Accept: application/json" -H "Content-type: application/json" -X P
 
 ## Copilot Plugin
 
-Perhaps more excitingly, you can configure the official [VSCode Copilot plugin](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) to use your local server. Just edit your `settings.json` to add:
+Perhaps more excitingly,
+you can configure the official [VSCode Copilot plugin](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) to use your local server. Just edit your `settings.json` to add:
 
 ```json
     "github.copilot.advanced": {
-        "debug.overrideEngine": "codegen",
-        "debug.testOverrideProxyUrl": "http://localhost:5000",
-        "debug.overrideProxyUrl": "http://localhost:5000"
+        "debug.overrideEngine"       : "codegen",
+        "debug.testOverrideProxyUrl" : "http://localhost:5000",
+        "debug.overrideProxyUrl"     : "http://localhost:5000"
     }
 ```
 
-And you should be able to use Copilot with your own locally hosted suggestions! Of course, probably a lot of stuff is subtly broken. In particular, the probabilities returned by the server are partly fake. Fixing this would require changing FasterTransformer so that it can return log-probabilities for the top k tokens rather that just the chosen token.
+And you should be able to use Copilot with your own locally hosted suggestions!
+Of course,
+probably a lot of stuff is subtly broken.
+In particular,
+    the probabilities returned by
+    the server are partly fake.
+Fixing this would require changing FasterTransformer so that
+it can return log-probabilities for the top k tokens rather that just the chosen token.
 
-Another issue with using the Copilot plugin is that its tokenizer (the component that turns text into a sequence of integers for the model) is slightly different from the one used by CodeGen, so the plugin will sometimes send a request that is longer than CodeGen can handle. You can work around this by replacing the `vocab.bpe` and `tokenizer.json` found in the Copilot extension (something like `.vscode/extensions/github.copilot-[version]/dist/`) with the ones found [here](https://github.com/moyix/fauxpilot/tree/main/copilot_proxy/cgtok/openai_format).
+Another issue with
+using the Copilot plugin is that its tokenizer (the component that turns text into a sequence of integers for the model)
+is slightly different from the one used by CodeGen,
+    so the plugin will sometimes send a request that is
+    longer than  CodeGen can handle.
+        You can work around this by
+        replacing the `vocab.bpe` and `tokenizer.json` found in the Copilot extension (something like `.vscode/extensions/github.copilot-[version]/dist/`)
+    with the ones found [here](https://github.com/moyix/fauxpilot/tree/main/copilot_proxy/cgtok/openai_format).
 
 Have fun!
 
